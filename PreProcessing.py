@@ -30,18 +30,7 @@ def preprocessing():
     test_data['Seasons'] = test_data['Seasons'].replace(['Summer'], 2)
     test_data['Seasons'] = test_data['Seasons'].replace(['Autumn'], 3)
 
-    # train_data = train_data.drop(['Date'], axis=1)
+    train_data = train_data.drop(['Date'], axis=1)
     # print(data.head())
-
-    # 2- Get X and Y
-
-    # y_train = train_data['Rented Bike Count'].values.reshape(-1, 1)
-    # y_test = test_data['Rented Bike Count'].values.reshape(-1, 1)
-    # print(train_data['Seasons'])
-    # Apply LabelEncoding
-
-    # print(train_data['Seasons'])
-    # x_train = train_data.drop(['Rented Bike Count'], axis=1).values
-    # x_test = test_data.drop(['Rented Bike Count'], axis=1).values
 
     return train_data, test_data
