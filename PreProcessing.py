@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,30 +5,43 @@ from numpy.ma import average
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+
 def preprocessing():
     # Date Reading
-    data = pd.read_csv('data set/train.csv')
+    train_data = pd.read_csv('data set/train.csv')
+    test_data = pd.read_csv('data set/test.csv')
+    # print(data)
 
-    #1-Filter input features
-    #print(data['Holiday'].unique()) #['No Holiday' 'Holiday']
-    data['Holiday'] = data['Holiday'].replace(['Holiday'],1)
-    data['Holiday'] = data['Holiday'].replace(['No Holiday'],0)
+    # 1-Filter input features
+    # print(data['Holiday'].unique()) #['No Holiday' 'Holiday']
+    train_data['Holiday'] = train_data['Holiday'].replace(['Holiday'], 1)
+    train_data['Holiday'] = train_data['Holiday'].replace(['No Holiday'], 0)
+    test_data['Holiday'] = test_data['Holiday'].replace(['Holiday'], 1)
+    test_data['Holiday'] = test_data['Holiday'].replace(['No Holiday'], 0)
 
     # print(data['Functioning Day'].unique()) #['Yes' 'No']
-    data['Functioning Day'] = data['Functioning Day'].replace(['Yes'],1)
-    data['Functioning Day'] = data['Functioning Day'].replace(['No'],0)
+    train_data['Functioning Day'] = train_data['Functioning Day'].replace(['Yes'], 1)
+    train_data['Functioning Day'] = train_data['Functioning Day'].replace(['No'], 0)
+    test_data['Functioning Day'] = test_data['Functioning Day'].replace(['Yes'], 1)
+    test_data['Functioning Day'] = test_data['Functioning Day'].replace(['No'], 0)
+    train_data['Seasons'] = train_data['Seasons'].replace(['winter'], 0)
+    train_data['Seasons'] = train_data['Seasons'].replace(['Spring'], 1)
+    train_data['Seasons'] = train_data['Seasons'].replace(['Summer'], 2)
+    test_data['Seasons'] = test_data['Seasons'].replace(['Summer'], 2)
+    test_data['Seasons'] = test_data['Seasons'].replace(['Autumn'], 3)
 
-    data=data.drop(['Date'],axis=1)
-    #print(data.head())
+    # train_data = train_data.drop(['Date'], axis=1)
+    # print(data.head())
 
     # 2- Get X and Y
 
-    Y = data['Rented Bike Count'].values.reshape(-1, 1)
-
+    # y_train = train_data['Rented Bike Count'].values.reshape(-1, 1)
+    # y_test = test_data['Rented Bike Count'].values.reshape(-1, 1)
+    # print(train_data['Seasons'])
     # Apply LabelEncoding
-    label_encoder=LabelEncoder()
-    data['Seasons']=label_encoder.fit_transform(data['Seasons'])
-    X = data.drop(['Rented Bike Count'], axis=1).values
 
-    return X,Y
-preprocessing()
+    # print(train_data['Seasons'])
+    # x_train = train_data.drop(['Rented Bike Count'], axis=1).values
+    # x_test = test_data.drop(['Rented Bike Count'], axis=1).values
+
+    return train_data, test_data
