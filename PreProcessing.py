@@ -1,9 +1,4 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from numpy.ma import average
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
 def preprocessing():
@@ -24,13 +19,13 @@ def preprocessing():
     train_data['Functioning Day'] = train_data['Functioning Day'].replace(['No'], 0)
     test_data['Functioning Day'] = test_data['Functioning Day'].replace(['Yes'], 1)
     test_data['Functioning Day'] = test_data['Functioning Day'].replace(['No'], 0)
-    train_data['Seasons'] = train_data['Seasons'].replace(['winter'], 0)
+    train_data['Seasons'] = train_data['Seasons'].replace(['Winter'], 0)
     train_data['Seasons'] = train_data['Seasons'].replace(['Spring'], 1)
     train_data['Seasons'] = train_data['Seasons'].replace(['Summer'], 2)
     test_data['Seasons'] = test_data['Seasons'].replace(['Summer'], 2)
     test_data['Seasons'] = test_data['Seasons'].replace(['Autumn'], 3)
 
     train_data = train_data.drop(['Date'], axis=1)
-    # print(data.head())
+    test_data = test_data.drop(['Date'], axis=1)
 
     return train_data, test_data
