@@ -1,11 +1,12 @@
 import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sn
 
 
 def preprocessing():
     # Date Reading
     train_data = pd.read_csv('data set/train.csv')
     test_data = pd.read_csv('data set/test.csv')
-    # print(data)
 
     # 1-Filter input features
     # print(data['Holiday'].unique()) #['No Holiday' 'Holiday']
@@ -24,8 +25,15 @@ def preprocessing():
     train_data['Seasons'] = train_data['Seasons'].replace(['Summer'], 2)
     test_data['Seasons'] = test_data['Seasons'].replace(['Summer'], 2)
     test_data['Seasons'] = test_data['Seasons'].replace(['Autumn'], 3)
-
     train_data = train_data.drop(['Date'], axis=1)
     test_data = test_data.drop(['Date'], axis=1)
-
+    # test_data = test_data.drop(['Dew point temperature(°C)'], axis=1)
+    # train_data = train_data.drop(['Dew point temperature(°C)'], axis=1)
+    # test_data = test_data.drop(['Seasons'], axis=1)
+    # train_data = train_data.drop(['Seasons'], axis=1)
+    test_data = test_data.drop(['Temperature(°C)'], axis=1)
+    train_data = train_data.drop(['Temperature(°C)'], axis=1)
+    corr_mat = train_data.corr()
+    sn.heatmap(corr_mat, annot=True)
+    plt.show()
     return train_data, test_data
