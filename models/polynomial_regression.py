@@ -11,11 +11,11 @@ test_data = test_data.drop(['ID'], axis=1)
 
 x = train_data.drop(['Rented Bike Count'], axis=1).values
 y = train_data['Rented Bike Count'].values.reshape(-1, 1)
-# # Standardization
-# x = standardize_data(x)
+# Standardization
+x = standardize_data(x)
 
-# x = normalize_data(x)
-# test_data = normalize_data(test_data)
+x = normalize_data(x)
+test_data = normalize_data(test_data)
 
 # Fitting Polynomial Regression to the dataset
 poly_reg = PolynomialFeatures(degree=2)
