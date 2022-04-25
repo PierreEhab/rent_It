@@ -8,7 +8,7 @@ from keras.layers import Convolution2D, Activation, MaxPooling2D, Dropout, Flatt
 from PreProcessing import preprocessing
 from tensorflow.keras.models import Sequential
 import numpy as np
-from helper_functions import write_to_csv, normalize_data
+from helper_functions import write_to_csv, normalize_data, standardize_data
 
 seed = 23
 train_data, test_data = preprocessing()
@@ -18,8 +18,14 @@ test_data = test_data.drop(['ID'], axis=1)
 x = train_data.drop(['Rented Bike Count'], axis=1).values
 y = train_data['Rented Bike Count'].values.reshape(-1, 1)
 
+
+# Standardization
+x = standardize_data(x)
+
+# Normalization.
 x = normalize_data(x)
 test_data = normalize_data(test_data)
+
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=seed)
 
