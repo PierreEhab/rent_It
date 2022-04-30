@@ -1,5 +1,6 @@
 # Write predictions in csv file.
-addedfrom sklearn.preprocessing import MinMaxScaler
+from sklearn import preprocessing
+from sklearn.preprocessing import MinMaxScaler
 
 
 def write_to_csv(file_name, predictions):
@@ -13,4 +14,10 @@ def normalize_data(data):
     scaler = MinMaxScaler()
     scaler_fit = scaler.fit(data)
     data = scaler_fit.transform(data)
+    return data
+
+
+def standardize_data(data):
+    # standardization of dependent variables
+    data = preprocessing.scale(data)
     return data

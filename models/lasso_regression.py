@@ -3,13 +3,16 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
 from PreProcessing import preprocessing
-from helper_functions import write_to_csv, normalize_data
+from helper_functions import write_to_csv, normalize_data, standardize_data
 
 lasso = Lasso()
 train_data, test_data = preprocessing()
 test_data = test_data.drop(['ID'], axis=1)
 y = train_data['Rented Bike Count'].values.reshape(-1, 1)
 x = train_data.drop(['Rented Bike Count'], axis=1).values
+# Standardization
+x = standardize_data(x)
+
 x = normalize_data(x)
 test_data = normalize_data(test_data)
 parameters = {'alpha': [1e-15, 1e-10, 1e-8, 1e-3, 1e-2, 1, 5, 10, 20, 30, 35, 40, 45, 50, 55, 100]}
