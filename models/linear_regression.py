@@ -18,7 +18,7 @@ y = train_data['Rented Bike Count'].values
 x = train_data.drop(['Rented Bike Count'], axis=1).values
 x = normalize_data(x)
 test_data = normalize_data(test_data)
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2,random_state=24)
 linearRegressor = LinearRegression()
 linearRegressor.fit(x_train, y_train)
 test_data = np.array(test_data)
