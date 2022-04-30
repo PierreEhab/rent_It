@@ -33,6 +33,10 @@ def preprocessing():
     # train_data = train_data.drop(['Seasons'], axis=1)
     test_data = test_data.drop(['Temperature(°C)'], axis=1)
     train_data = train_data.drop(['Temperature(°C)'], axis=1)
+
+    # check nulls
+    print(train_data.isnull().sum())
+
     corr_mat = train_data.corr()
     sn.heatmap(corr_mat, annot=True)
     plt.show()

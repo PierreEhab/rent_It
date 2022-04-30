@@ -1,6 +1,7 @@
 # ANN code Here
 from matplotlib import pyplot as plt
 from pandas import read_csv
+from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from keras import layers, models
@@ -31,7 +32,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 
 model = Sequential()
-model.add(Dense(256, input_dim=11, activation='relu'))
+model.add(Dense(256, input_dim=10, activation='relu'))
 model.add(Dense(256, activation='relu'))
 model.add(Dense(1, activation='linear'))
 
@@ -44,3 +45,5 @@ history = model.fit(x, y, epochs=200, validation_split=0.2,)
 predictions = model.predict(test_data)
 # Save to csv file
 write_to_csv('predictedFromNN.csv', predictions)
+#y_pred = model.predict(x_test)
+#print("MAE",mean_absolute_error(y_test,y_pred))
