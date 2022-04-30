@@ -63,18 +63,26 @@ from statsmodels.tsa.stattools import adfuller
 
 def adf_test(dataset):
 
-        dftest = adfuller(dataset, autolag='AIC')
+        '''dftest = adfuller(dataset, autolag='AIC')
         print("1. ADF : ", dftest[0])
         print("2. P-Value : ", dftest[1])
         print("3. Num Of Lags : ", dftest[2])
         print("4. Num Of Observations Used For ADF Regression:", dftest[3])
         print("5. Critical Values :")
         for key, val in dftest[4].items():
-            print("\t", key, ": ", val)
+            print("\t", key, ": ", val)'''
+        dftest = adfuller(dataset['Rented Bike Count'], autolag='AIC')
+
+        dfoutput = pd.Series(dftest[0:4],
+                             index=['Test Statistic', 'p-value', '#Lags Used', 'Number of Observations Used'])
+        for key, value in dftest[4].items():
+            dfoutput['Critical Value (%s)' % key] = value
+
+        print(dfoutput)
 
 
 
-adf_test(indexedDataset['Rented Bike Count'])
+adf_test(indexedDataset)
 
 indexedDataset_logScale = np.log(indexedDataset)
 plt.plot(indexedDataset_logScale)
@@ -105,8 +113,13 @@ def test_stationarity(timeseries):
     plt.legend(loc='best')
     plt.title('Rolling Mean & Standard Deviation')
     plt.show()
-    adf_test(timeseries['Rented Bike Count'])
-
+    #timeseries.dropna(inplace=True)
+    print('Results of Dickey Fuller Test:')
+    dftest = adfuller(timeseries['Rented Bike Count'], autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4], index=['Test Statistic', 'p-value', '#Lags Used', 'Number of Observations Used'])
+    for key, value in dftest[4].items():
+        dfoutput['Critical Value (%s)' % key] = value
+    print(dfoutput)
 
 test_stationarity(datasetLogScaleMinusMovingAverage)
 
