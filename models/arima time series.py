@@ -31,7 +31,7 @@ train_data = train_data.sort_values(['Date', 'Rented Bike Count'])
 indexedDataset = train_data.set_index(['Date'])
 
 #train_data = train_data.groupby('Date')['Rented Bike Count'].mean()
-print("after group by",train_data.head())
+#print("after group by",train_data.head())
 
 
 # Define the date format
@@ -93,12 +93,12 @@ movingStd = indexedDataset_logScale.rolling(window=356).std()
 plt.plot(movingAvg, color='red')
 plt.show()
 
-datasetLogScaleMinusMovingAverage = indexedDataset_logScale - movingAvg
+'''datasetLogScaleMinusMovingAverage = indexedDataset_logScale - movingAvg
 datasetLogScaleMinusMovingAverage.head(12)
 
 # Remove NAN values
 datasetLogScaleMinusMovingAverage.dropna(inplace=True)
-datasetLogScaleMinusMovingAverage.head(10)
+datasetLogScaleMinusMovingAverage.head(10)'''
 
 
 def test_stationarity(timeseries):
@@ -121,14 +121,15 @@ def test_stationarity(timeseries):
         dfoutput['Critical Value (%s)' % key] = value
     print(dfoutput)
 
-test_stationarity(datasetLogScaleMinusMovingAverage)
+#test_stationarity(datasetLogScaleMinusMovingAverage)
 
-exponentialDecayWeightedAverage = indexedDataset_logScale.ewm(halflife=365, min_periods=0, adjust=True).mean()
+'''exponentialDecayWeightedAverage = indexedDataset_logScale.ewm(halflife=365, min_periods=0, adjust=True).mean()
 plt.plot(indexedDataset_logScale)
 plt.plot(exponentialDecayWeightedAverage, color='red')
 plt.show()
 
 datasetLogScaleMinusExponentialMovingAverage = indexedDataset_logScale - exponentialDecayWeightedAverage
+print(datasetLogScaleMinusExponentialMovingAverage.head())
 test_stationarity(datasetLogScaleMinusExponentialMovingAverage)
 
 datasetLogDiffShifting = indexedDataset_logScale - indexedDataset_logScale.shift()
@@ -136,9 +137,9 @@ plt.plot(datasetLogDiffShifting)
 plt.show()
 datasetLogDiffShifting.dropna(inplace=True)
 test_stationarity(datasetLogDiffShifting)
-print(datasetLogDiffShifting.head(),datasetLogDiffShifting.tail())
+print(datasetLogDiffShifting.head(),datasetLogDiffShifting.tail())'''
 
-decomposition = seasonal_decompose(indexedDataset_logScale,model='additive')
+decomposition = seasonal_decompose(indexedDataset_logScale)
 
 trend = decomposition.trend
 seasonal = decomposition.seasonal
