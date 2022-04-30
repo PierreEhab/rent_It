@@ -25,9 +25,13 @@ train_data['Seasons'] = train_data['Seasons'].replace(['Summer'], 2)
 train_data.drop(train_data.columns.difference(['Date', 'Rented Bike Count']), 1, inplace=True)
 print('Shape of data', train_data.shape)
 print(train_data.head())
+
+train_data = train_data.sort_values(['Date', 'Rented Bike Count'])
+
 indexedDataset = train_data.set_index(['Date'])
 
-train_data = train_data.groupby('Date')['Rented Bike Count'].mean()
+#train_data = train_data.groupby('Date')['Rented Bike Count'].mean()
+print("after group by",train_data.head())
 
 
 # Define the date format
@@ -52,7 +56,7 @@ orig = plt.plot(indexedDataset, color='blue', label='original')
 mean = plt.plot(rolmean, color='red', label='rolling mean')
 std = plt.plot(rolstd, color='black', label='rolling std')
 plt.legend(loc='best')
-#plt.show()
+plt.show()
 
 from statsmodels.tsa.stattools import adfuller
 
@@ -74,12 +78,12 @@ adf_test(indexedDataset['Rented Bike Count'])
 
 indexedDataset_logScale = np.log(indexedDataset)
 plt.plot(indexedDataset_logScale)
-#plt.show()
+plt.show()
 
 movingAvg = indexedDataset_logScale.rolling(window=356).mean()
 movingStd = indexedDataset_logScale.rolling(window=356).std()
 plt.plot(movingAvg, color='red')
-#plt.show()
+plt.show()
 
 datasetLogScaleMinusMovingAverage = indexedDataset_logScale - movingAvg
 datasetLogScaleMinusMovingAverage.head(12)
