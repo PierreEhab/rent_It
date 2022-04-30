@@ -1,7 +1,7 @@
 from sklearn.linear_model import Lasso
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import MinMaxScaler
-
+from sklearn.metrics import  mean_absolute_error
 from PreProcessing import preprocessing
 from helper_functions import write_to_csv, normalize_data, standardize_data
 
@@ -27,3 +27,6 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 prediction_lasso = lasso_regressor.predict(test_data)
 
 write_to_csv('predictedFromLassoReg.csv', prediction_lasso)
+
+y_pred = lasso_regressor.predict(x_test)
+print("MAE",mean_absolute_error(y_test,y_pred))

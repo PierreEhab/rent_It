@@ -5,6 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from PreProcessing import preprocessing
 from helper_functions import write_to_csv, normalize_data
+from sklearn.metrics import  mean_absolute_error
 import seaborn as sn
 
 
@@ -25,4 +26,8 @@ y_predicted = linearRegressor.predict(test_data)
 
 # write to csv file
 write_to_csv('predictedFromLR.csv', y_predicted)
+
+
+y_pred = linearRegressor.predict(x_test)
+print("MAE",mean_absolute_error(y_test,y_pred))
 

@@ -2,7 +2,7 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
 from helper_functions import write_to_csv, normalize_data
 from PreProcessing import preprocessing
-
+from sklearn.metrics import  mean_absolute_error
 
 train_data, test_data = preprocessing()
 test_data = test_data.drop(['ID'], axis=1)
@@ -16,4 +16,5 @@ reg = Ridge(alpha=1.0)
 reg.fit(x_train, y_train)
 y_pred = reg.predict(test_data)
 write_to_csv('predictedFromRidgeReg.csv', y_pred)
-#print("MAE",mean_absolute_error(y_test,y_pred))
+y_pred = reg.predict(x_test)
+print("MAE",mean_absolute_error(y_test,y_pred))

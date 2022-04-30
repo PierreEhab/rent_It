@@ -2,6 +2,8 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sn
 
+from Outliers import RemoveOutliersToMean, RemoveOutliersToMedian
+
 
 def preprocessing():
     # Date Reading
@@ -33,7 +35,12 @@ def preprocessing():
     # train_data = train_data.drop(['Seasons'], axis=1)
     test_data = test_data.drop(['Temperature(°C)'], axis=1)
     train_data = train_data.drop(['Temperature(°C)'], axis=1)
-    corr_mat = train_data.corr()
+    '''corr_mat = train_data.corr()
     sn.heatmap(corr_mat, annot=True)
-    plt.show()
+    plt.show()'''
+
+    #train_data,test_data=RemoveOutliersToMean(train_data,test_data)
+    train_data, test_data = RemoveOutliersToMedian(train_data, test_data)
+    #print(train_data.isnull().sum(axis = 0))
+    #print(test_data.isnull().sum(axis=0))
     return train_data, test_data
