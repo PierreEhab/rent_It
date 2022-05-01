@@ -69,7 +69,7 @@ model.fit(x,y)
 y_predicted = model.predict(test_data)
 print(y_predicted.shape)
 # write to csv file
-write_to_csv('predictedFromVotingRegressor.csv', y_predicted)
+write_to_csv('predictions/predictedFromVotingRegressor.csv', y_predicted)
 
 
 
