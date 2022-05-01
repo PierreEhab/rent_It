@@ -1,14 +1,26 @@
 import numpy as np
 import pandas as pd
 from sklearn import  linear_model, metrics, pipeline, preprocessing
+from helper_functions import write_to_csv, normalize_data, standardize_data
+from sklearn.model_selection import train_test_split
+
 
 # Date Reading
 train_data = pd.read_csv('data set/train.csv')
 test_data = pd.read_csv('data set/test.csv')
+test_data = test_data.drop(['Temperature(°C)'], axis=1)
+train_data = train_data.drop(['Temperature(°C)'], axis=1)
+y = train_data['Rented Bike Count'].values
+x = train_data.drop(['Rented Bike Count'], axis=1).values
 
-train_labels = train_data['Rented Bike Count'].values
-train_data = train_data.drop(['Date', 'Rented Bike Count', 'Temperature(°C)'], axis = 1)
-test_data = test_data.drop(['Date', 'Temperature(°C)'], axis = 1)
+#x = normalize_data(x)
+#test_data = normalize_data(test_data)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2,random_state=24)
+
+train_labels = y_train
+train_data = x_train
+test_labels = y_test
+test_data = x_test
 
 binary_data_columns = ['Holiday', 'Functioningday']
 binary_data_indices = np.array([(column in binary_data_columns) for column in train_data.columns], dtype = bool)
