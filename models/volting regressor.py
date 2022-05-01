@@ -29,7 +29,6 @@ x = normalize_data(x)
 test_data = normalize_data(test_data)
 
 #test_data = np.array(test_data)
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2,random_state=24)
 
 #model = GradientBoostingRegressor()
 #model.fit(x_train,y_train)
@@ -41,6 +40,21 @@ reg1 = GradientBoostingRegressor()
 reg2 = RandomForestRegressor()
 reg3 = LinearRegression()
 
+reg1.fit(x, y)
+reg2.fit(x, y)
+reg3.fit(x, y)
+model= VotingRegressor([('gb', reg1), ('rf', reg2), ('lr', reg3)])
+
+model.fit(x,y)
+y_predicted = model.predict(test_data)
+print(y_predicted.shape)
+# write to csv file
+write_to_csv('predictions/predictedFromVotingRegressor.csv', y_predicted)
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2,random_state=24)
+reg1 = GradientBoostingRegressor()
+reg2 = RandomForestRegressor()
+reg3 = LinearRegression()
 reg1.fit(x_train, y_train)
 reg2.fit(x_train, y_train)
 reg3.fit(x_train, y_train)
@@ -49,6 +63,7 @@ model= VotingRegressor([('gb', reg1), ('rf', reg2), ('lr', reg3)])
 model.fit(x_train,y_train)
 
 y_pred= model.predict(x_test)
+
 
 #r = r2_score(y_test, y_pred)
 mse = mean_squared_error(y_test, y_pred)
@@ -60,17 +75,3 @@ mae = mean_absolute_error(y_test,y_pred)
 print("Mean Squared Error:",mse)
 print("Mean Absolute Error:",mae)
 print("RMSE", math.sqrt(mse))
-
-reg1.fit(x, y)
-reg2.fit(x, y)
-reg3.fit(x, y)
-
-model.fit(x,y)
-y_predicted = model.predict(test_data)
-print(y_predicted.shape)
-# write to csv file
-write_to_csv('predictedFromVotingRegressor.csv', y_predicted)
-
-
-
-
