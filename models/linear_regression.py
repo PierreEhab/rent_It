@@ -25,7 +25,7 @@ test_data = np.array(test_data)
 y_predicted = linearRegressor.predict(test_data)
 
 # write to csv file
-write_to_csv('predictedFromLR.csv', y_predicted)
+write_to_csv('predictions/predictedFromLR.csv', y_predicted)
 
 
 y_pred = linearRegressor.predict(x_test)

@@ -15,6 +15,6 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 reg = Ridge(alpha=1.0)
 reg.fit(x_train, y_train)
 y_pred = reg.predict(test_data)
-write_to_csv('predictedFromRidgeReg.csv', y_pred)
+write_to_csv('predictions/predictedFromRidgeReg.csv', y_pred)
 y_pred = reg.predict(x_test)
 print("MAE",mean_absolute_error(y_test,y_pred))
