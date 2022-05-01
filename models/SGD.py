@@ -8,8 +8,9 @@ from sklearn.model_selection import train_test_split
 # Date Reading
 train_data = pd.read_csv('data set/train.csv')
 test_data = pd.read_csv('data set/test.csv')
-test_data = test_data.drop(['Temperature(°C)'], axis=1)
-train_data = train_data.drop(['Temperature(°C)'], axis=1)
+#preprocess
+test_data = test_data.drop(['Temperature(°C)','Date'], axis=1)
+train_data = train_data.drop(['Temperature(°C)','Date'], axis=1)
 y = train_data['Rented Bike Count'].values
 x = train_data.drop(['Rented Bike Count'], axis=1).values
 
